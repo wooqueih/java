@@ -19,17 +19,23 @@ public class TGraphics {
         String temp = "";
         for(int y = height-1; y >= 0; y--){
             for(int x = 0; x < width; x++){
-                switch((state[x][y] <= 0.25) ? 0 : (state[x][y] <= 0.5) ? 1 : (state[x][y] <= 0.75) ? 2 : 3){
+                switch((state[x][y] <= 0.1) ? 0 : (state[x][y] <= 0.25) ? 1 : (state[x][y] <= 0.4) ? 2 : (state[x][y] <= 0.6) ? 3 : (state[x][y] <= 0.8) ? 4 : 5){
                     case 0:
                         temp += " ";
                         break;
                     case 1:
-                        temp += "-";
+                        temp += ".";
                         break;
                     case 2:
-                        temp += "+";
+                        temp += "*";
                         break;
                     case 3:
+                        temp += "+";
+                        break;
+                    case 4:
+                        temp += "/";
+                        break;
+                    case 5:
                         temp += "#";
                         break;
                 }

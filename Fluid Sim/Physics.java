@@ -1,18 +1,18 @@
 public class Physics {
     static class Tile {
-        public double temperature;
+        //public double temperature;
         public double density;
         public double[] velocity;
 
         public Tile(boolean makeRandom){
             if(makeRandom){
-                temperature = Math.random()*60+40;
-                density = Math.random()*60+40;
+                //temperature = Math.random()*70+30;
+                density = Math.random()*70+30;
                 velocity = new double[2];
                 velocity[0] = Math.random()*70+30;
                 velocity[1] = Math.random()*70+30;
             } else {
-                temperature = 0;
+                //temperature = 0;
                 density = 0;
                 velocity = new double[2];
                 velocity[0] = 0;
@@ -53,7 +53,7 @@ public class Physics {
             double[][] tileBrightness = new double[width][height];
             for(int i = 1; i < width+1; i++){
                 for(int j = 1; j < height+1; j++){
-                    tileBrightness[i-1][j-1] = state[i][j].temperature*state[i][j].density/10000;
+                    tileBrightness[i-1][j-1] = state[i][j].density/100;
                 }
             }
             return tileBrightness;
@@ -65,22 +65,19 @@ public class Physics {
             for(int i = 1; i < width+1; i++){
                 for(int j = 1; j < height+1; j++){
                     temp[i][j] = simulateTile(i, j);
-                    tileBrightness[i-1][j-1] = temp[i][j].temperature*temp[i][j].density/10000;
+                    tileBrightness[i-1][j-1] = temp[i][j].density/100;
                 }
             }
             return tileBrightness;
         }
         public Tile simulateTile(int x, int y){
             Tile outTile = new Tile(false);
-            for(int i = -1; i < 2; i++){
-                for(int j = -1; j < 2; j++){
-                    outTile.temperature += state[x+i][y+j].temperature;
-                    outTile.density += state[x+i][y+j].density;
-                }
-            }
-            outTile.temperature = outTile.temperature/9;
-            outTile.density = outTile.density/9;
+            outTile.density = ((state[x+1][y].density + state[x-1][y].density + state[x][y+1].density + state[x][y-1].density)/4);
+            simulateDiffusion();
             return outTile;
+        }
+        public simulateDiffusion(){
+            
         }
     }
 }
